@@ -1,0 +1,27 @@
+{
+  "name": "food-log",
+  "version": "1.0.0",
+  "description": "Daily food log",
+  "main": "app.js",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "pg": "^8.6.0",
+    "dotenv": "^9.0.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zamieabdullah/Food_Log.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/zamieabdullah/Food_Log/issues"
+  },
+  "homepage": "https://github.com/zamieabdullah/Food_Log#readme"
+}
