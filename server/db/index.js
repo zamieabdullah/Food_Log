@@ -1,10 +1,10 @@
 const Pool = require("pg").Pool;
 
 config = {
-    user: process.env.USER,
-    pass: process.env.PASS,
-    host: process.env.HOST,
+    host: process.env.DB_HOST,
     port: 5432,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASS,
     database: "food_log"
 };
 

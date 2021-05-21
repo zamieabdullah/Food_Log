@@ -1,24 +1,22 @@
 const express = require("express");
 const cors = require("cors");
 const app = express();
-const pool = require("./db/index");
 
 const env = require("dotenv");
 env.config();
 
-const port = process.env.PORT || 3000
+const pool = require("./db/index");
+
+const port = process.env.PORT
 
 // Middleware
-app.use(cors);
+app.use(cors());
 app.use(express.json());
 
-app.post("/hello", async (req, res) => {
-    try {
-        console.log("Hello World")
-    } catch (e) {
-        console.log(e.message)
-    }
-})
+// API functions
+const router = require("./api_functions/index");
+
+app.use("/api", router);
 
 app.listen(port, () => {
     console.log("Running on port", port);
