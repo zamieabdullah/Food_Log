@@ -14,6 +14,12 @@ SET default_table_access_method = heap;
 SET search_path = public, pg_catalog;
 
 -- 
+-- Extensions
+-- 
+
+CREATE EXTENSION pgcrypto;
+
+-- 
 -- Tables
 -- 
 

@@ -1,12 +1,14 @@
 import React, { Fragment } from "react";
 import './App.css';
 
-import InputTodo from "./components/createAccount"
+import InputTodo from "./components/createAccount/createAccount";
 
 function App() {
     return (
         <Fragment>
-            <InputTodo />
+            <div className="container">
+                <InputTodo />
+                </div>
         </Fragment>
     );
 }
