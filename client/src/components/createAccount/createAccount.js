@@ -3,11 +3,11 @@ import "./style.css";
 
 const InputTodo = () => {
     const [account, setAccount] = useState({
-        first_name: "",
-        middle_name: "",
-        last_name: "",
-        email: "",
-        password: ""
+        first_name: '',
+        middle_name: '',
+        last_name: '',
+        email: '',
+        password: ''
     });
   
     const handleChange = (event) => {
@@ -20,16 +20,26 @@ const InputTodo = () => {
             const resp = await fetch("http://localhost:5000/api/user/createUser", {
                 method: "POST",
                 headers: {"Content-Type" : "application/json"},
-                body: JSON.stringify(account)
+                data: account
             });
             
-            setAccount({
-                first_name: "",
-                middle_name: "",
-                last_name: "",
-                email: "",
-                password: ""
-            });
+            const data = await resp.json();
+            
+            console.log(data.message);
+            
+            if (resp.status === 409) {
+                alert(data.message);
+            } else if (resp.status === 500) {
+                alert(data.message);
+            } else {
+                setAccount({
+                    first_name: '',
+                    middle_name: '',
+                    last_name: '',
+                    email: '',
+                    password: ''
+                });
+            }
             
         } catch (error) {
             console.error(error);
