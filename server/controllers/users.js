@@ -13,8 +13,8 @@ const createUser = async (req, res) => {
             [first_name, middle_name, last_name, email, password]);
         return res.status(200).json({message: 'Account successfully made'});
     } catch (e) {
-        console.error('Please fill out all required boxes');
-        return res.status(500).json({message: 'Please fill out all required boxes'});
+        console.error('Failure to create account');
+        return res.status(500).json({message: 'Failure to create account'});
     }
 }
 

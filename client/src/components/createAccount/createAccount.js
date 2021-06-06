@@ -17,10 +17,10 @@ const InputTodo = () => {
     const handleSumbit = async (event) => {
         event.preventDefault();
         try {
-            const resp = await fetch("http://localhost:5000/api/user/createUser", {
+            const resp = await fetch("/api/user/createUser", {
                 method: "POST",
                 headers: {"Content-Type" : "application/json"},
-                data: account
+                body: JSON.stringify(account)
             });
             
             const data = await resp.json();
@@ -50,13 +50,13 @@ const InputTodo = () => {
         <Fragment>
             <h1 className="text-center">Food Log</h1>
             <h2 className="text-center mt-5">Create account</h2>
-            <form>
+            <form onSubmit={handleSumbit}>
                 <div className="form-group mb-4">
                     <label htmlFor="first_name" className="required">First Name</label>
                     <input type="text" className="form-control" 
                         placeholder="First Name" name="first_name" 
                         value={account.first_name} 
-                        onChange={handleChange}/>
+                        onChange={handleChange} required/>
                 </div>
                 <div className="form-group mb-4">
                     <label htmlFor="middle_name">Middle Name</label>
@@ -70,24 +70,24 @@ const InputTodo = () => {
                     <input type="text" className="form-control" 
                         placeholder="Last Name" name="last_name"
                         value={account.last_name}
-                        onChange={handleChange}/>
+                        onChange={handleChange} required/>
                 </div>
                 <div className="form-group mb-4">
                     <label htmlFor="email_address" className="required">Email Address</label>
                     <input type="text" className="form-control" 
                         placeholder="Email Address" name="email" 
                         value={account.email}
-                        onChange={handleChange}/>
+                        onChange={handleChange} required/>
                 </div>
                 <div className="form-group mb-4">
                     <label htmlFor="password" className="required">Password</label>
                     <input type="text" className="form-control" 
                         placeholder="Password" name="password" 
                         value={account.password}
-                        onChange={handleChange}/>
+                        onChange={handleChange} required/>
                 </div>
                 <div className="form-group">
-                    <button className="btn btn-primary" onClick={handleSumbit}>Submit</button>
+                    <button type="submit" className="btn btn-primary">Submit</button>
                 </div>
             </form>
         </Fragment>
