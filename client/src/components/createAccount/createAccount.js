@@ -1,7 +1,8 @@
 import React, { Fragment, useState } from "react";
+import PopUp from "../PopUp/PopUp"
 import "./style.css";
 
-const InputTodo = () => {
+export default () => {
     const [account, setAccount] = useState({
         first_name: '',
         middle_name: '',
@@ -9,7 +10,15 @@ const InputTodo = () => {
         email: '',
         password: ''
     });
-  
+    
+    const [seen, setSeen] = useState({
+        seen: true
+    });
+    
+    const togglePop = () => {
+        setSeen({seen: !seen.seen})
+    };
+    
     const handleChange = (event) => {
         setAccount({...account, [event.target.name]: event.target.value});
     };
@@ -28,8 +37,10 @@ const InputTodo = () => {
             console.log(data.message);
             
             if (resp.status === 409) {
-                alert(data.message);
+                togglePop();
+                console.log(seen.seen);
             } else if (resp.status === 500) {
+              
                 alert(data.message);
             } else {
                 setAccount({
@@ -45,7 +56,7 @@ const InputTodo = () => {
             console.error(error);
         } 
     };
-  
+
     return (
         <Fragment>
             <h1 className="text-center">Food Log</h1>
@@ -90,8 +101,10 @@ const InputTodo = () => {
                     <button type="submit" className="btn btn-primary">Submit</button>
                 </div>
             </form>
+            <div>
+                {seen.seen ? <PopUp toggle={togglePop}/> : null}
+                {console.log(seen.seen)}
+            </div>
         </Fragment>
     )
 }
-
-export default InputTodo
