@@ -1,5 +1,5 @@
-import React from 'react'
-import './style.css'
+import React, { Fragment, useState } from "react"
+import "./style.css"
 
 export default (props) => {
     
@@ -11,10 +11,10 @@ export default (props) => {
     return (
         <div className='modal'>
             <div className='modal-content'>
-                <span className='close' onClick={handleClick}>
-                    {console.log(props)}
+                <span className='close'>
                     &times
                 </span>
+                <p>poop</p>
             </div>
         </div>
     )

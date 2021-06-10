@@ -1,6 +1,7 @@
 import React, { Fragment, useState } from "react";
 import PopUp from "../PopUp/PopUp"
-import "./style.css";
+import "./style.css"
+import "../PopUp/style.css"
 
 export default () => {
     const [account, setAccount] = useState({
@@ -17,6 +18,7 @@ export default () => {
     
     const togglePop = () => {
         setSeen({seen: !seen.seen})
+        console.log(seen.seen)
     };
     
     const handleChange = (event) => {
@@ -37,8 +39,7 @@ export default () => {
             console.log(data.message);
             
             if (resp.status === 409) {
-                togglePop();
-                console.log(seen.seen);
+                alert(data.message)
             } else if (resp.status === 500) {
               
                 alert(data.message);
@@ -100,11 +101,16 @@ export default () => {
                 <div className="form-group">
                     <button type="submit" className="btn btn-primary">Submit</button>
                 </div>
+                <div>
+                    <div className='modal-content'>
+                        <span className='close' onClick={togglePop}>
+                            &times;
+                        </span>
+                    </div>
+                </div>
             </form>
-            <div>
-                {seen.seen ? <PopUp toggle={togglePop}/> : null}
-                {console.log(seen.seen)}
-            </div>
+            
+                
         </Fragment>
     )
 }
