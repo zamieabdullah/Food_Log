@@ -24,6 +24,5 @@
 
 .close:hover {
     color: blue;
-    float: right;
     cursor: pointer;
 }

@@ -8,14 +8,12 @@ export default (props) => {
         props.toggle();
     }
     
-    return (
-        <div className='modal'>
-            <div className='modal-content'>
-                <span className='close'>
-                    &times
-                </span>
-                <p>poop</p>
-            </div>
+    return (        
+        <div className='modal-content'>
+            <span className='close' onClick={handleClick}>
+                &times;
+            </span>
+            <p>{props.message}</p>
         </div>
     )
 }

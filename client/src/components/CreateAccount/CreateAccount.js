@@ -13,12 +13,19 @@ export default () => {
     });
     
     const [seen, setSeen] = useState({
-        seen: true
+        seen: false
+    });
+    
+    const [message, setMessage] = useState({
+        message: ''
     });
     
     const togglePop = () => {
         setSeen({seen: !seen.seen})
-        console.log(seen.seen)
+    };
+    
+    const addMessage = (newMessage) => {
+        setMessage({message: newMessage});
     };
     
     const handleChange = (event) => {
@@ -38,11 +45,9 @@ export default () => {
             
             console.log(data.message);
             
-            if (resp.status === 409) {
-                alert(data.message)
-            } else if (resp.status === 500) {
-              
-                alert(data.message);
+            if (resp.status !== 200) {
+                togglePop();
+                addMessage(data.message);
             } else {
                 setAccount({
                     first_name: '',
@@ -101,15 +106,8 @@ export default () => {
                 <div className="form-group">
                     <button type="submit" className="btn btn-primary">Submit</button>
                 </div>
-                <div>
-                    <div className='modal-content'>
-                        <span className='close' onClick={togglePop}>
-                            &times;
-                        </span>
-                    </div>
-                </div>
             </form>
-            
+            {seen.seen ? <PopUp toggle={togglePop} message={message.message}/> : null}
                 
         </Fragment>
     )
