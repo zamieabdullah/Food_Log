@@ -4,7 +4,6 @@ import "./style.css"
 export default (props) => {
     
     const handleClick = () => {
-        console.log(props);
         props.toggle();
     }
     

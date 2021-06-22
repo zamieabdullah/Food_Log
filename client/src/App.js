@@ -1,14 +1,12 @@
-import React, { Fragment } from "react";
+import React, {Fragment} from "react";
 import './App.css';
 
-import CreateAccount from "./components/CreateAccount/CreateAccount";
+import LoginSignUp from "./pages/LoginSignUp";
 
 function App() {
     return (
         <Fragment>
-            <div className="container">
-                <CreateAccount />
-            </div>
+            <LoginSignUp />
         </Fragment>
     );
 }

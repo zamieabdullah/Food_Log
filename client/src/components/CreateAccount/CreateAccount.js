@@ -1,4 +1,5 @@
 import React, { Fragment, useState } from "react";
+import Axios from "axios";
 import PopUp from "../PopUp/PopUp"
 import "./style.css"
 import "../PopUp/style.css"
@@ -21,7 +22,7 @@ export default () => {
     });
     
     const togglePop = () => {
-        setSeen({seen: !seen.seen})
+        setSeen({seen: !seen.seen});
     };
     
     const addMessage = (newMessage) => {
@@ -35,31 +36,31 @@ export default () => {
     const handleSumbit = async (event) => {
         event.preventDefault();
         try {
-            const resp = await fetch("/api/user/createUser", {
-                method: "POST",
-                headers: {"Content-Type" : "application/json"},
-                body: JSON.stringify(account)
+            
+            const resp = await Axios({
+                method: 'POST',
+                url: '/api/auth/createUser',
+                headers: {'Content-Type' : 'application/json'},
+                data: {
+                    first_name: account.first_name,
+                    middle_name: account.middle_name,
+                    last_name: account.last_name,
+                    email: account.email,
+                    password: account.password
+                }
             });
             
-            const data = await resp.json();
-            
-            console.log(data.message);
-            
-            if (resp.status !== 200) {
-                togglePop();
-                addMessage(data.message);
-            } else {
-                setAccount({
-                    first_name: '',
-                    middle_name: '',
-                    last_name: '',
-                    email: '',
-                    password: ''
-                });
-            }
+            setAccount({
+                first_name: '',
+                middle_name: '',
+                last_name: '',
+                email: '',
+                password: ''
+            });
             
         } catch (error) {
-            console.error(error);
+            togglePop();
+            addMessage('Error has occurred when making account');
         } 
     };
 

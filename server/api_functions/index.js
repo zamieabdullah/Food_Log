@@ -1,9 +1,9 @@
 const pool = require("../db/index");
 const router = require("express").Router()
 
-const user = require("./users");
+const auth = require("./auth");
 
-router.use("/user", user);
+router.use("/auth", auth);
 
 router.get("/hello", async(req, res) => {
     try {
