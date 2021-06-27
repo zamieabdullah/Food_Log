@@ -1,10 +1,14 @@
 import React, { Fragment } from 'react';
-import CreateAccount from "../components/CreateAccount/CreateAccount";
+import LoginNavbar from '../components/LoginNavbar/LoginNavbar'
+import CreateAccount from '../components/CreateAccount/CreateAccount';
 
 export default () => {
     return (
-        <div className="container">
-            <CreateAccount />
-        </div>
+        <Fragment>
+            <LoginNavbar />
+            <div className='container'>
+                <CreateAccount />
+            </div>
+        </Fragment>
     )
 }

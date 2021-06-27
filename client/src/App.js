@@ -1,13 +1,14 @@
-import React, {Fragment} from "react";
+import React from 'react';
+import { BrowserRouter as Router } from 'react-router-dom';
 import './App.css';
 
-import LoginSignUp from "./pages/LoginSignUp";
+import AppRoute from './routes/AppRoute';
 
 function App() {
     return (
-        <Fragment>
-            <LoginSignUp />
-        </Fragment>
+        <Router>
+            <AppRoute />
+        </Router>
     );
 }
 

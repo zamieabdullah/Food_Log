@@ -33,10 +33,9 @@ export default () => {
         setAccount({...account, [event.target.name]: event.target.value});
     };
     
-    const handleSumbit = async (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
         try {
-            
             const resp = await Axios({
                 method: 'POST',
                 url: '/api/auth/createUser',
@@ -66,9 +65,8 @@ export default () => {
 
     return (
         <Fragment>
-            <h1 className="text-center">Food Log</h1>
             <h2 className="text-center mt-5">Create account</h2>
-            <form onSubmit={handleSumbit}>
+            <form onSubmit={handleSubmit}>
                 <div className="form-group mb-4">
                     <label htmlFor="first_name" className="required">First Name</label>
                     <input type="text" className="form-control" 

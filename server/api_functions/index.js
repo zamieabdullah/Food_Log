@@ -2,6 +2,9 @@ const pool = require("../db/index");
 const router = require("express").Router()
 
 const auth = require("./auth");
+const users = require("./users");
+
+router.use("/user", users);
 
 router.use("/auth", auth);
 

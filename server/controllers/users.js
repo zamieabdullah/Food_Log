@@ -14,6 +14,8 @@ const createUser = async (req, res) => {
         const user = await pool.query('INSERT INTO account (first_name, middle_name, last_name, email_address, password) VALUES ($1, $2, $3, $4, $5) RETURNING id',
             [first_name, middle_name, last_name, email, password]);
         
+        if (user.rowCount === 0) return res.status(404).json({message : 'User not found'});
+        
         const response = {
             auth : true,
             token : jwt.sign({user: user.rows[0].id}, process.env.JWT_PRIVATE, {expiresIn : '1h'}),
@@ -34,9 +36,14 @@ const createUser = async (req, res) => {
 
 const loginUser = async (req, res) => {
     try {
-        const { email , password } = req.body;
+        const { email , password } = req.query;
+        
+        console.log(req.query);
+        
         const user = await pool.query('SELECT id, email_address FROM account WHERE email_address = $1 and password = $2',
             [email, password]);
+        
+        if (user.rowCount === 0) return res.status(404).json({message : 'User not found'});
         
         const response = {
             auth : true,
@@ -47,7 +54,7 @@ const loginUser = async (req, res) => {
             }
         }
         
-        return res.status(200).json({message : response});
+        return res.status(200).json(response);
     } catch (e) {
         console.error('Failed to retrieve account');
         return res.status(500).json({message: e});
@@ -73,4 +80,28 @@ const checkUser = async (req, res) => {
     }
 }
 
-module.exports = { createUser , loginUser , checkUser };
+const getUser = async (req, res) => {
+    try {
+        const { id } = req.query;
+        
+        console.log(req.query, id);
+        
+        const user = await pool.query('SELECT first_name, last_name, email_address FROM account WHERE id = $1',
+            [id]);
+        
+        if (user.rowCount === 0) return res.status(404).json({message : 'User not found'});
+        
+        const response = {
+            id : user.rows[0].id,
+            first_name : user.rows[0].first_name,
+            last_name : user.rows[0].last_name,
+            email : user.rows[0].email_address
+        }
+        
+        return res.status(200).json(response);
+    } catch (e) {
+        return res.status(500).json({message : 'Failed to retrieve data'});
+    }
+}
+
+module.exports = { createUser , loginUser , checkUser , getUser };
