@@ -1,10 +1,14 @@
-import React, { Fragment , useState } from 'react';
+import React, { Fragment , useState, useEffect } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-
+import Axios from 'axios';
 import Home from '../pages/Home';
 import LoginSignUp from '../pages/LoginSignUp';
 
 export default () => {
+    useEffect(() => {
+
+    }, []);
+
     return (
         <Switch>
             <Route exact path='/'>
