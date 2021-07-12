@@ -23,22 +23,17 @@ const createUser = async (req, res) => {
                 id : user.rows[0].id,
                 email : user.rows[0].email_address
             }
-        }    
+        }
         
-        console.log(user);
-        
-        return res.status(200).json({message: 'Account successfully made'});
+        return res.status(200).json(response);
     } catch (e) {
-        console.error('Failure to create account');
         return res.status(500).json({message: 'Failure to create account'});
     }
 }
 
 const loginUser = async (req, res) => {
     try {
-        const { email , password } = req.query;
-        
-        console.log(req.query);
+        const { email , password } = req.body;
         
         const user = await pool.query('SELECT id, email_address FROM account WHERE email_address = $1 and password = $2',
             [email, password]);
@@ -56,7 +51,6 @@ const loginUser = async (req, res) => {
         
         return res.status(200).json(response);
     } catch (e) {
-        console.error('Failed to retrieve account');
         return res.status(500).json({message: e});
     }
 }
@@ -73,9 +67,8 @@ const checkUser = async (req, res) => {
             email : user.rows[0].email_address
         }
         
-        return res.status(200).json({message : response});
+        return res.status(200).json(response);
     } catch (e) {
-        console.error('Failed to retrieve account');
         return res.status(500).json({message: e});
     }
 }
@@ -83,8 +76,6 @@ const checkUser = async (req, res) => {
 const getUser = async (req, res) => {
     try {
         const { id } = req.query;
-        
-        console.log(req.query, id);
         
         const user = await pool.query('SELECT first_name, last_name, email_address FROM account WHERE id = $1',
             [id]);
