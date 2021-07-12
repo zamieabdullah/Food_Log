@@ -75,7 +75,7 @@ const checkUser = async (req, res) => {
 
 const getUser = async (req, res) => {
     try {
-        const { id } = req.query;
+        const id = req.user;
         
         const user = await pool.query('SELECT first_name, last_name, email_address FROM account WHERE id = $1',
             [id]);

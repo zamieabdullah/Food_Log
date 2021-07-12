@@ -1,17 +1,14 @@
 import React, { Fragment , useState } from 'react';
 import Axios from 'axios';
-import { Redirect } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import './style.css'
 
 export default () => {
-
+    const history = useHistory();
+    
     const [user, setUser] = useState({
         email : '',
         password : ''
-    });
-
-    const [valid, setValid] = useState({
-        valid : false
     });
 
     const handleChange = (event) => {
@@ -22,25 +19,30 @@ export default () => {
         event.preventDefault();
         try {
             const resp = await Axios({
-                method : 'GET',
+                method : 'POST',
                 url : '/api/auth/loginUser',
                 headers : {'Content-Type' : 'application/json'},
-                params : {
+                data : {
                     email : user.email,
                     password : user.password
                 }
             });
-
+            
+            // const resp = await axios.post('/api/auth/loginUser', {
+            // 
+            // })
+            
             setUser({
                 email : '',
                 password : ''
             });
 
             localStorage.setItem('x-auth-token', resp.data.token);
-            Axios.defaults.headers.common['x-auth-token'] = resp.data.token;
-
-            setValid({ valid : true });
-            localStorage.setItem('authenticated', valid.valid);
+            // Axios.defaults.headers.common['x-auth-token'] = resp.data.token;
+            
+            localStorage.setItem('authenticated', resp.data.auth);
+            
+            history.push('/');
 
         } catch (err) {
             console.error(err);
@@ -67,7 +69,6 @@ export default () => {
                     <button type='submit' className='btn btn-primary'>Submit</button>
                 </form>
             </nav>
-            {valid.valid ? <Redirect to='/' /> : null}
         </Fragment>
     )
 }

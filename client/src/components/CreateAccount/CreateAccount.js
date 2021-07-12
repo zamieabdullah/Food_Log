@@ -57,6 +57,11 @@ export default () => {
                 password: ''
             });
             
+            localStorage.setItem('x-auth-token', resp.data.token);
+            Axios.defaults.headers.common['x-auth-token'] = resp.data.token;
+            
+            localStorage.setItem('authenticated', resp.data.auth);
+            
         } catch (error) {
             togglePop();
             addMessage('Error has occurred when making account');
