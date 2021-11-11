@@ -1,10 +1,13 @@
 import React, { Fragment, useState } from "react";
+import { useHistory } from "react-router-dom";
 import Axios from "axios";
 import PopUp from "../PopUp/PopUp"
 import "./style.css"
 import "../PopUp/style.css"
 
 export default () => {
+    const history = useHistory();
+    
     const [account, setAccount] = useState({
         first_name: '',
         middle_name: '',
@@ -58,10 +61,10 @@ export default () => {
             });
             
             localStorage.setItem('x-auth-token', resp.data.token);
-            Axios.defaults.headers.common['x-auth-token'] = resp.data.token;
-            
             localStorage.setItem('authenticated', resp.data.auth);
             
+            history.push('/');
+            window.location.reload();
         } catch (error) {
             togglePop();
             addMessage('Error has occurred when making account');

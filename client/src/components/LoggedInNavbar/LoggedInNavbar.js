@@ -19,6 +19,7 @@ export default () => {
         delete Axios.defaults.headers.common['x-auth-token'];
         
         history.push('/register');
+        window.location.reload();
     }
     
     useEffect(() => {

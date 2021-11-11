@@ -28,22 +28,17 @@ export default () => {
                 }
             });
             
-            // const resp = await axios.post('/api/auth/loginUser', {
-            // 
-            // })
-            
             setUser({
                 email : '',
                 password : ''
             });
 
             localStorage.setItem('x-auth-token', resp.data.token);
-            // Axios.defaults.headers.common['x-auth-token'] = resp.data.token;
             
             localStorage.setItem('authenticated', resp.data.auth);
             
             history.push('/');
-
+            window.location.reload();
         } catch (err) {
             console.error(err);
         }
