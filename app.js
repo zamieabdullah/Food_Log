@@ -14,6 +14,7 @@ const port = process.env.PORT || 5000
 // Middleware
 app.use(cors());
 app.use(express.json());
+
 app.use(function(req, res, next) {
     // res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000");
     res.setHeader("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE,OPTIONS");
@@ -27,11 +28,21 @@ const router = require("./api_functions/index");
 app.use("/api", router);
 
 // Static files served
-app.use(express.static(path.join(__dirname, '../client/build')));
+
+app.use(express.static(path.join(__dirname, './client/build')));
 app.use('/*', (req, res) => {
-  res.sendFile(path.join(__dirname, '../client/build/index.html'));
+  res.sendFile(path.join(__dirname, './client/build/index.html'));
 });
 
-app.listen(5000, () => {
-    console.log("Running on port", 5000);
+// Static files served to production
+if (process.env.NODE_ENV === "production"){
+    app.use(express.static(path.join(__dirname, './client/build')));
+    app.use('/*', (req, res) => {
+      res.sendFile(path.join(__dirname, './client/build/index.html'));
+    });
+}
+
+
+app.listen(port, () => {
+    console.log("Running on port", port);
 });

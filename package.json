@@ -3,6 +3,10 @@
   "version": "1.0.0",
   "description": "Daily food log",
   "main": "app.js",
+  "engines": {
+      "node": "14.7.0",
+      "npm": "7.19.1"
+  },
   "dependencies": {
     "cors": "^2.8.5",
     "dotenv": "^9.0.2",
@@ -12,8 +16,8 @@
   },
   "devDependencies": {},
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node app.js"
+    "start": "node app.js",
+    "heroku-postbuild": "cd client && npm install && npm run build"
   },
   "repository": {
     "type": "git",
