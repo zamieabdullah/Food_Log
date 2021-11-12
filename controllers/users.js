@@ -27,7 +27,7 @@ const createUser = async (req, res) => {
         
         return res.status(200).json(response);
     } catch (e) {
-        return res.status(500).json({message: 'Failure to create account'});
+        return res.status(500).json({message: e});
     }
 }
 
