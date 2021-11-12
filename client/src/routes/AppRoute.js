@@ -40,9 +40,6 @@ export default () => {
                 <Route exact path='/'>
                     <LoginSignUp />
                 </Route>
-                <Route path='*'>
-                    <h1>Error 404</h1>
-                </Route>
             </Switch>
         )
     } else {
@@ -53,9 +50,6 @@ export default () => {
                 </Route>
                 <Route exact path='/register'>
                     <LoginSignUp />
-                </Route>
-                <Route path='*'>
-                    <h1>Error 404</h1>
                 </Route>
             </Switch>
         )
