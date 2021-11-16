@@ -1,4 +1,6 @@
 const Pool = require("pg").Pool;
+require("dotenv").config();
+
 
 config = {
     host: process.env.DB_HOST,
@@ -13,6 +15,7 @@ const proConfig = {
     connectionString: process.env.DATABASE_URL
 }
 
+console.log(proConfig)
 pool = new Pool(process.env.NODE_ENV === "production" ? proConfig : config);
 
 module.exports = pool;
