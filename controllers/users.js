@@ -5,7 +5,7 @@ const createUser = async (req, res) => {
     try {
         const { first_name, middle_name, last_name, email, 
             password } = req.body;
-        
+        console.log(req.body)
         const checkEmail = await pool.query('SELECT id FROM account WHERE email_address = $1',
             [email]);
         if (checkEmail.rowCount > 0) {
