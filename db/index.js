@@ -12,7 +12,10 @@ config = {
 
 // production configuration
 const proConfig = {
-    connectionString: process.env.DATABASE_URL
+    connectionString: process.env.DATABASE_URL,
+    ssl: {
+      rejectUnauthorized: false
+    }
 }
 
 console.log(proConfig)
