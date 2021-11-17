@@ -18,7 +18,6 @@ const proConfig = {
     }
 }
 
-console.log(proConfig)
 pool = new Pool(process.env.NODE_ENV === "production" ? proConfig : config);
-console.log(pool)
+
 module.exports = pool;

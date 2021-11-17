@@ -5,7 +5,6 @@ const createUser = async (req, res) => {
     try {
         const { first_name, middle_name, last_name, email, 
             password } = req.body;
-        console.log(req.body)
         const checkEmail = await pool.query('SELECT id FROM account WHERE email_address = $1',
             [email]);
         if (checkEmail.rowCount > 0) {
@@ -13,7 +12,6 @@ const createUser = async (req, res) => {
         }
         const user = await pool.query('INSERT INTO account (first_name, middle_name, last_name, email_address, password) VALUES ($1, $2, $3, $4, $5) RETURNING id',
             [first_name, middle_name, last_name, email, password]);
-        console.log(user)
         if (user.rowCount === 0) return res.status(404).json({message : 'User not found'});
         
         const response = {
