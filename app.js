@@ -9,7 +9,7 @@ env.config();
 
 const pool = require("./db/index");
 
-const port = process.env.PORT || 5000
+const port = process.env.PORT || 3000
 
 // Middleware
 app.use(cors());
