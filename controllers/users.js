@@ -25,7 +25,6 @@ const createUser = async (req, res) => {
         
         return res.status(200).json(response);
     } catch (e) {
-        console.log(e)
         return res.status(500).json({message: 'Failure to create account'});
     }
 }
@@ -33,7 +32,6 @@ const createUser = async (req, res) => {
 const loginUser = async (req, res) => {
     try {
         const { email , password } = req.body;
-        console.log(req.body)
         const user = await pool.query('SELECT id, email_address FROM account WHERE email_address = $1 and password = $2',
             [email, password]);
         

@@ -1,7 +1,9 @@
 import React, { Fragment , useState } from 'react';
 import Axios from 'axios';
+import PopUp from "../PopUp/PopUp";
 import { useHistory } from 'react-router-dom';
-import './style.css'
+import './style.css';
+import "../PopUp/style.css";
 
 export default () => {
     const history = useHistory();
@@ -10,7 +12,23 @@ export default () => {
         email : '',
         password : ''
     });
-
+    
+    const [seen, setSeen] = useState({
+        seen: false
+    });
+    
+    const togglePop = () => {
+        setSeen({seen: !seen.seen});
+    };
+    
+    const [message, setMessage] = useState({
+        message: ''
+    });
+    
+    const addMessage = (newMessage) => {
+        setMessage({message: newMessage});
+    };
+    
     const handleChange = (event) => {
         setUser({...user, [event.target.name] : event.target.value});
     };
@@ -40,7 +58,8 @@ export default () => {
             history.push('/');
             window.location.reload();
         } catch (err) {
-            console.error(err);
+            togglePop();
+            addMessage('Error has occurred when logging in.');
         }
     }
 
@@ -64,6 +83,7 @@ export default () => {
                     <button type='submit' className='btn btn-primary'>Submit</button>
                 </form>
             </nav>
+            {seen.seen ? <PopUp toggle={togglePop} message={message.message}/> : null}
         </Fragment>
     )
 }

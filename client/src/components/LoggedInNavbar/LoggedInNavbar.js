@@ -1,7 +1,7 @@
 import React, { Fragment , useState , useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import Axios from 'axios';
-import './style.css'
+import './style.css';
 
 export default () => {
     
@@ -38,7 +38,7 @@ export default () => {
                 });
                 
             } catch (e) {
-                console.error(e);
+                logOut();
             }
         }
         getUser();
@@ -48,8 +48,8 @@ export default () => {
         <Fragment>
             <nav class='navbar justify-content-between'>
                 <h1>Food Log</h1>
-                <h2>Welcome {user.first_name}</h2>
-                <button onClick={logOut}>Log Out</button>
+                <h2>{user.first_name}'s Food Log</h2>
+                <button className='btn btn-primary' onClick={logOut}>Log Out</button>
             </nav>
         </Fragment>
     )

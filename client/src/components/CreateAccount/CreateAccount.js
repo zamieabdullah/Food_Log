@@ -1,9 +1,9 @@
 import React, { Fragment, useState } from "react";
 import { useHistory } from "react-router-dom";
 import Axios from "axios";
-import PopUp from "../PopUp/PopUp"
-import "./style.css"
-import "../PopUp/style.css"
+import PopUp from "../PopUp/PopUp";
+import "./style.css";
+import "../PopUp/style.css";
 
 export default () => {
     const history = useHistory();
