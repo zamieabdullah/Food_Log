@@ -1,5 +1,6 @@
 import React, { Fragment , useEffect, useState } from 'react';
 import LoggedInNavbar from '../../components/LoggedInNavbar/LoggedInNavbar'
+import FoodLogForm from '../../components/FoodLogForm/FoodLogForm'
 import './style.css'
 
 export default () => {
@@ -13,6 +14,7 @@ export default () => {
             <div>
                 <h2 style={{textAlign: 'center', margin: '40px'}}>Logging Food</h2>
             </div>
+            <FoodLogForm />
         </Fragment>
     );
 }

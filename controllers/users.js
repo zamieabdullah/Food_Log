@@ -10,7 +10,7 @@ const createUser = async (req, res) => {
         if (checkEmail.rowCount > 0) {
             return res.status(409).json({message: 'Account is already made with this email address'})
         }
-        const user = await pool.query('INSERT INTO account (first_name, middle_name, last_name, email_address, password) VALUES ($1, $2, $3, $4, $5) RETURNING id',
+        const user = await pool.query('INSERT INTO account (first_name, middle_name, last_name, email_address, password) VALUES ($1, $2, $3, $4, crypt($5, gen_salt(\'bf\'))) RETURNING id',
             [first_name, middle_name, last_name, email, password]);
         if (user.rowCount === 0) return res.status(404).json({message : 'User not found'});
         
@@ -32,10 +32,10 @@ const createUser = async (req, res) => {
 const loginUser = async (req, res) => {
     try {
         const { email , password } = req.body;
-        const user = await pool.query('SELECT id, email_address FROM account WHERE email_address = $1 and password = $2',
+        const user = await pool.query('SELECT id, email_address FROM account WHERE email_address = $1 and password = crypt($2, password)',
             [email, password]);
         
-        if (user.rowCount === 0) return res.status(404).json({message : 'User not found'});
+        if (user.rowCount === 0) return res.status(401).json({message : 'Incorrect Password and Email Match'});
         
         const response = {
             auth : true,
