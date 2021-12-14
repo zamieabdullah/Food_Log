@@ -51,6 +51,7 @@ CREATE TABLE food_log (
     account_id integer NOT NULL,
     food_type_id integer NOT NULL,
     name text NOT NULL,
+    description text,
     time_eaten timestamptz NOT NULL,
     last_update timestamptz DEFAULT now() NOT NULL
 );
