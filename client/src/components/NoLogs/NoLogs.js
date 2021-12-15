@@ -13,7 +13,7 @@ export default () => {
 
     return (
         <div className='container'>
-            <p>You have not listed any logs today!</p>
+            <p>You have not listed any logs for this day!</p>
             <p>
                 If you would like to record a new log, press the button below.
             </p>

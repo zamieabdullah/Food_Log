@@ -23,8 +23,11 @@ const recordLog = async (req, res) => {
 const retrieveLog = async (req, res) => {
     try {
         const id = req.user;
-
-        const retrievedLogs = await pool.query('SELECT name, food_type.type, description, time_eaten FROM food_log, food_type WHERE food_log.account_id = $1 AND food_log.food_type_id = food_type.id', [id]);
+        const { month, day, year } = req.query;
+        const date = convertDatetoStr(month, day, year);
+        console.log(date);
+        
+        const retrievedLogs = await pool.query('SELECT name, food_type.type, description, time_eaten FROM food_log, food_type WHERE food_log.account_id = $1 AND food_log.food_type_id = food_type.id AND DATE(time_eaten) = $2', [id, date]);
 
         let logs = []
 
@@ -55,5 +58,11 @@ const retrieveLog = async (req, res) => {
         return res.status(500).json({message : 'Failed to retrieve logs'});
     }
 }
+
+/*********************** Helper Functions ***********************/
+const convertDatetoStr = (month, day, year) => {
+    return year.toString() + '-' + month.toString() + '-' + day.toString();
+};
+
 
 module.exports = { recordLog, retrieveLog }
