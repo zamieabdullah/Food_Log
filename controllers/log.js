@@ -4,12 +4,11 @@ const jwt = require('jsonwebtoken');
 const recordLog = async (req, res) => {
     try {
         const id = req.user;
-        let status = 200;
 
         const {food_name, food_type, description} = req.body;
         const type = await pool.query('SELECT id FROM food_type WHERE type = $1', [food_type.toUpperCase()]);
         if (type.rowCount == 0) {
-            return res.status(40).json({message: 'Unavailable input'});
+            return res.status(400).json({message: 'Unavailable input'});
         }
 
         const record = await pool.query('INSERT INTO food_log (account_id, food_type_id, name, time_eaten, description) VALUES ($1, $2, $3, now(), $4)', [id, type.rows[0].id, food_name, description]);
@@ -23,10 +22,10 @@ const recordLog = async (req, res) => {
 const retrieveLog = async (req, res) => {
     try {
         const id = req.user;
-        const { month, day, year } = req.query;
-        const date = convertDatetoStr(month, day, year);
-        console.log(date);
-        
+        const { reqDate } = req.query;
+
+        const date = convertDatetoStr(reqDate);
+
         const retrievedLogs = await pool.query('SELECT name, food_type.type, description, time_eaten FROM food_log, food_type WHERE food_log.account_id = $1 AND food_log.food_type_id = food_type.id AND DATE(time_eaten) = $2', [id, date]);
 
         let logs = []
@@ -60,8 +59,12 @@ const retrieveLog = async (req, res) => {
 }
 
 /*********************** Helper Functions ***********************/
-const convertDatetoStr = (month, day, year) => {
-    return year.toString() + '-' + month.toString() + '-' + day.toString();
+const convertDatetoStr = (reqDate) => {
+    const date = new Date(reqDate);
+
+    return date.getFullYear().toString() + '-' +
+            (date.getMonth() + 1).toString() + '-' +
+            date.getDate().toString();
 };
 
 
